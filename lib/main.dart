@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
               iconTheme: const IconThemeData(color: kDark),
               primarySwatch: Colors.grey,
             ),
-            home: const MainScreen(),
+            home: MainScreen(),
           );
         });
   }
