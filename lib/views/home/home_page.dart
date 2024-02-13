@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodie/common/custom_appbar.dart';
 import 'package:foodie/common/custom_container.dart';
 import 'package:foodie/constants/constants.dart';
+import 'package:foodie/views/home/widgets/category_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,7 +16,11 @@ class HomePage extends StatelessWidget {
         preferredSize: Size.fromHeight(100.h),
         child: const CustomAppBar(),
       ),
-      body: SafeArea(child: CustomContainer(containerContent: Container())),
+      body: const SafeArea(
+          child: CustomContainer(
+              containerContent: Column(
+        children: [CategoryList()],
+      ))),
     );
   }
 }
