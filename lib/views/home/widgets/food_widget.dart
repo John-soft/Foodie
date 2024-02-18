@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodie/common/reusable_text.dart';
@@ -39,7 +40,8 @@ class FoodWidget extends StatelessWidget {
                   child: SizedBox(
                     height: 112.h,
                     width: width * 0.8,
-                    child: Image.network(image, fit: BoxFit.fitWidth),
+                    child: CachedNetworkImage(
+                        imageUrl: image, fit: BoxFit.fitWidth),
                   ),
                 ),
               ),
