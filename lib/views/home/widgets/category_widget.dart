@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodie/common/reusable_text.dart';
 import 'package:foodie/constants/constants.dart';
 import 'package:foodie/controllers/category_controller.dart';
+import 'package:foodie/models/categories.dart';
 import 'package:foodie/views/categories/all_categories.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +14,7 @@ class CategoryWidget extends StatelessWidget {
     required this.category,
   });
 
-  final category;
+  final CategoryModel category;
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +22,16 @@ class CategoryWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        if (controller.categoryValue == category['_id']) {
+        if (controller.categoryValue == category.id) {
           controller.updateCategory = '';
           controller.updateTitle = '';
-        } else if (category['value'] == 'more') {
+        } else if (category.value == 'more') {
           Get.to(() => const AllCategories(),
               transition: Transition.fadeIn,
               duration: const Duration(milliseconds: 900));
         } else {
-          controller.updateCategory = category['_id'];
-          controller.updateTitle = category['title'];
+          controller.updateCategory = category.id;
+          controller.updateTitle = category.title;
         }
       },
       child: Obx(
@@ -40,7 +42,7 @@ class CategoryWidget extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
               border: Border.all(
-                  color: controller.categoryValue == category['_id']
+                  color: controller.categoryValue == category.id
                       ? kSecondary
                       : kOffWhite,
                   width: .5.w)),
@@ -48,13 +50,22 @@ class CategoryWidget extends StatelessWidget {
             children: [
               SizedBox(
                 height: 35.h,
-                child: Image.network(
-                  category['imageUrl'],
-                  fit: BoxFit.contain,
-                ),
+                child: CachedNetworkImage(
+                    imageUrl: category.imageUrl,
+                    // placeholder: (BuildContext context, String url) =>
+                    //     const CircularProgressIndicator(
+                    //       color: Colors.white,
+                    //     ),
+                    errorWidget:
+                        (BuildContext context, String url, dynamic error) =>
+                            const Icon(
+                              Icons.error,
+                            )
+                    // fit: BoxFit.contain,
+                    ),
               ),
               ReusableText(
-                  text: category['title'],
+                  text: category.title,
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
                   color: kDark)
