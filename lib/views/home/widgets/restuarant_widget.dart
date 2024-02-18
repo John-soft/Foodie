@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +45,10 @@ class RestuarantWidget extends StatelessWidget {
                       child: SizedBox(
                         height: 112.h,
                         width: width * 0.8,
-                        child: Image.network(image, fit: BoxFit.fitWidth),
+                        child: CachedNetworkImage(
+                          imageUrl: image,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -59,8 +62,8 @@ class RestuarantWidget extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50.r),
-                              child: Image.network(
-                                logo,
+                              child: CachedNetworkImage(
+                                imageUrl: logo,
                                 fit: BoxFit.cover,
                                 width: 20.w,
                                 height: 20.h,
@@ -106,7 +109,7 @@ class RestuarantWidget extends StatelessWidget {
                         RatingBarIndicator(
                             itemCount: 5,
                             rating: 5,
-                            itemSize: 15.h,
+                            itemSize: 10.h,
                             itemBuilder: (context, index) {
                               return const Icon(
                                 Icons.star,

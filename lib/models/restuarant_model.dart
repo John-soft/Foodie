@@ -11,6 +11,7 @@ class RestuarantModel {
   String id;
   String title;
   String time;
+  String imageUrl;
   List<dynamic> foods;
   bool pickup;
   bool delivery;
@@ -28,6 +29,7 @@ class RestuarantModel {
     required this.id,
     required this.title,
     required this.time,
+    required this.imageUrl,
     required this.foods,
     required this.pickup,
     required this.delivery,
@@ -47,6 +49,7 @@ class RestuarantModel {
         id: json["_id"],
         title: json["title"],
         time: json["time"],
+        imageUrl: json["imageUrl"],
         foods: List<dynamic>.from(json["foods"].map((x) => x)),
         pickup: json["pickup"],
         delivery: json["delivery"],
@@ -65,6 +68,7 @@ class RestuarantModel {
         "_id": id,
         "title": title,
         "time": time,
+        "imageUrl": imageUrl,
         "foods": List<dynamic>.from(foods.map((x) => x)),
         "pickup": pickup,
         "delivery": delivery,
