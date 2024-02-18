@@ -7,7 +7,7 @@ import 'package:foodie/models/categories.dart';
 import 'package:foodie/models/hook_model.dart/hook_result.dart';
 import 'package:http/http.dart' as http;
 
-FetchHooks useFetchCategories() {
+FetchHooks useFetchAllCategories() {
   final categoriesItems = useState<List<CategoryModel>?>(null);
   final isLoading = useState<bool>(false);
   final error = useState<Exception?>(null);
@@ -16,8 +16,7 @@ FetchHooks useFetchCategories() {
   Future<void> fetchData() async {
     isLoading.value = true;
     try {
-      final response =
-          await http.get(Uri.parse('$appBaseUrl/api/v1/category/random'));
+      final response = await http.get(Uri.parse('$appBaseUrl/api/v1/category'));
       if (response.statusCode == 200) {
         categoriesItems.value = categoryModelFromJson(response.body);
       } else {
