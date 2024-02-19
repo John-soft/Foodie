@@ -22,6 +22,16 @@ class CategoryPage extends HookWidget {
     final isLoading = hookResult.isLoading;
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                controller.updateCategory = '';
+                controller.updateTitle = '';
+                Get.back();
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: kGray,
+              )),
           elevation: 0,
           backgroundColor: kOffWhite,
           title: ReusableText(

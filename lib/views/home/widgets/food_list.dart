@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodie/common/shimmers/nearby_shimmer.dart';
+import 'package:foodie/food/food_page.dart';
 import 'package:foodie/hooks/fetch_foods.dart';
 import 'package:foodie/models/foods_model.dart';
 import 'package:foodie/views/home/widgets/food_widget.dart';
+import 'package:get/get.dart';
 
 class FoodsList extends HookWidget {
   const FoodsList({super.key});
@@ -28,7 +30,9 @@ class FoodsList extends HookWidget {
                   title: food.title,
                   time: food.time,
                   price: food.price.toStringAsFixed(2),
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => FoodPage(food: food));
+                  },
                 );
               }),
             ),

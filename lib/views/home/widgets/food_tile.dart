@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:foodie/common/reusable_text.dart';
 import 'package:foodie/constants/constants.dart';
+import 'package:foodie/food/food_page.dart';
 import 'package:foodie/models/foods_model.dart';
+import 'package:get/get.dart';
 
 class FoodTile extends StatelessWidget {
   const FoodTile({
@@ -20,8 +22,11 @@ class FoodTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Get.to(() => FoodPage(food: food));
+        },
         child: Stack(
+          clipBehavior: Clip.hardEdge,
           children: [
             Container(
               margin: EdgeInsets.only(bottom: 8.h),
