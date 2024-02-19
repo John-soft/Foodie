@@ -1,3 +1,4 @@
+import 'package:foodie/common/logger.dart';
 import 'package:get/get.dart';
 
 class CategoryController extends GetxController {
@@ -7,6 +8,7 @@ class CategoryController extends GetxController {
 
   set updateCategory(String value) {
     _category.value = value;
+    logger(_category.value);
   }
 
   final RxString _title = ''.obs;

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,9 +8,14 @@ import 'package:foodie/constants/constants.dart';
 import 'package:foodie/models/foods_model.dart';
 
 class FoodTile extends StatelessWidget {
-  const FoodTile({super.key, required this.food});
+  const FoodTile({
+    super.key,
+    required this.food,
+    this.color,
+  });
 
   final FoodsModel food;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class FoodTile extends StatelessWidget {
               height: 70.h,
               width: width,
               decoration: BoxDecoration(
-                color: kOffWhite,
+                color: color ?? kOffWhite,
                 borderRadius: BorderRadius.circular(9.r),
               ),
               child: Container(
@@ -36,8 +42,8 @@ class FoodTile extends StatelessWidget {
                           SizedBox(
                             height: 70.h,
                             width: 70.h,
-                            child: Image.network(
-                              food.imageUrl,
+                            child: CachedNetworkImage(
+                              imageUrl: food.imageUrl,
                               fit: BoxFit.cover,
                             ),
                           ),

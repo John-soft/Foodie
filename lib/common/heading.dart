@@ -5,10 +5,16 @@ import 'package:foodie/common/reusable_text.dart';
 import 'package:foodie/constants/constants.dart';
 
 class Heading extends StatelessWidget {
-  const Heading({super.key, required this.text, required this.onTap});
+  const Heading({
+    super.key,
+    required this.text,
+    required this.onTap,
+    this.more,
+  });
 
   final String text;
   final VoidCallback onTap;
+  final bool? more;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +31,16 @@ class Heading extends StatelessWidget {
                 fontSize: 16,
                 color: kDark),
           ),
-          GestureDetector(
-            onTap: onTap,
-            child: Icon(
-              AntDesign.appstore1,
-              color: kSecondary,
-              size: 20.sp,
-            ),
-          )
+          more == null
+              ? GestureDetector(
+                  onTap: onTap,
+                  child: Icon(
+                    AntDesign.appstore1,
+                    color: kSecondary,
+                    size: 20.sp,
+                  ),
+                )
+              : const SizedBox.shrink()
         ],
       ),
     );

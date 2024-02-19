@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodie/constants/constants.dart';
 
 class CustomContainer extends StatelessWidget {
-  const CustomContainer({super.key, required this.containerContent});
+  const CustomContainer(
+      {super.key, required this.containerContent, this.color});
 
   final Widget containerContent;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class CustomContainer extends StatelessWidget {
         ),
         child: Container(
           width: width,
-          color: kOffWhite,
+          color: color ?? kOffWhite,
           child: SingleChildScrollView(
             child: containerContent,
           ),

@@ -1,14 +1,18 @@
 import 'dart:io';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:foodie/common/logger.dart';
 import 'package:foodie/constants/constants.dart';
+import 'package:foodie/controllers/category_controller.dart';
 import 'package:foodie/models/api_error.dart';
-import 'package:foodie/models/categories.dart';
-import 'package:foodie/models/hook_model.dart/hook_result.dart';
+import 'package:foodie/models/foods_model.dart';
+import 'package:foodie/models/hook_model.dart/food_hook.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-FetchHooks useFetchCategories() {
-  final categoriesItems = useState<List<CategoryModel>?>(null);
+FetchFoods useFetchFoodsByCategory(String code) {
+  final controller = Get.put(CategoryController());
+  final foods = useState<List<FoodsModel>?>(null);
   final isLoading = useState<bool>(false);
   final error = useState<Exception?>(null);
   final apiError = useState<ApiError?>(null);
@@ -16,16 +20,17 @@ FetchHooks useFetchCategories() {
   Future<void> fetchData() async {
     isLoading.value = true;
     try {
-      final response =
-          await http.get(Uri.parse('$appBaseUrl/api/v1/category/random'));
+      final response = await http.get(Uri.parse(
+          '$appBaseUrl/api/v1/foods/${controller.categoryValue}/code'));
+      logger(response.statusCode);
       if (response.statusCode == 200) {
-        categoriesItems.value = categoryModelFromJson(response.body);
+        foods.value = foodsModelFromJson(response.body);
       } else {
         apiError.value = apiErrorFromJson(response.body);
       }
     } catch (e) {
       if (e is SocketException) {
-        error.value = Exception('Please check your netwok');
+        error.value = Exception('Please Check your netwok');
       }
       error.value = e as Exception?;
     } finally {
@@ -34,6 +39,7 @@ FetchHooks useFetchCategories() {
   }
 
   useEffect(() {
+    //Future.delayed(const Duration(seconds: 3));
     fetchData();
     return null;
   }, []);
@@ -43,8 +49,8 @@ FetchHooks useFetchCategories() {
     fetchData();
   }
 
-  return FetchHooks(
-    data: categoriesItems.value,
+  return FetchFoods(
+    data: foods.value,
     isLoading: isLoading.value,
     error: error.value,
     refetch: refetch,
